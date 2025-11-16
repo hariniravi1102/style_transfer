@@ -17,7 +17,7 @@ def get_mediapipe_keypoints(image_path):
     with mp_face.FaceMesh(static_image_mode=True, max_num_faces=1) as mesh:
         res = mesh.process(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
         if not res.multi_face_landmarks:
-            raise ValueError("❌ No face detected in source image.")
+            raise ValueError("No face detected in source image.")
         landmarks = np.array([(p.x * w, p.y * h) for p in res.multi_face_landmarks[0].landmark])
     return landmarks
 
@@ -42,7 +42,7 @@ def create_eye_mouth_mask(image_shape, keypoints):
     fill_region(right_eye)
     fill_region(mouth_outer)
     fill_region(mouth_inner)
-    # 🟢 FIX: Dilate slightly and blur to soften transitions
+   
     mask = cv2.dilate(mask, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5)), iterations=1)
     mask = cv2.GaussianBlur(mask, (7, 7), 2)
 
@@ -76,14 +76,14 @@ def test_single_image(source_image_path, heatmap_dir, output_path="outputs/test_
     keypoints = get_mediapipe_keypoints(source_image_path)
     mask_np = create_eye_mouth_mask((H, W), keypoints)
     cv2.imwrite("mask_preview.png", (mask_np * 255).astype(np.uint8))
-    print("🧩 Saved mask preview as mask_preview.png")
+    print("Saved mask preview as mask_preview.png")
 
     eye_mouth_mask = torch.tensor(mask_np, dtype=torch.float32).unsqueeze(0).unsqueeze(0).to(device)
 
     # --- Load keypoint heatmaps ---
     heatmap_files = sorted(os.listdir(heatmap_dir))
     if not heatmap_files:
-        print("❌ No heatmaps found.")
+        print("No heatmaps found.")
         return
 
     src_kp = torch.tensor(np.load(os.path.join(heatmap_dir, heatmap_files[0])),
@@ -112,7 +112,7 @@ def test_single_image(source_image_path, heatmap_dir, output_path="outputs/test_
             pred = generator(input_gen)
             pred = torch.clamp(pred, 0, 1)
 
-            # --- ✅ Static background mask (only eyes & mouth animated) ---
+          
             final_frame = pred * eye_mouth_mask + src_tensor * (1 - eye_mouth_mask)
             final_frame = torch.clamp(final_frame, 0, 1)
 
@@ -122,12 +122,12 @@ def test_single_image(source_image_path, heatmap_dir, output_path="outputs/test_
 
             if i == 0:
                 cv2.imwrite("test_frame_masked.png", frame_np)
-                print("🧩 Saved first masked frame as test_frame_masked.png")
+                print("Saved first masked frame as test_frame_masked.png")
 
             out.write(frame_np)
 
     out.release()
-    print(f"✅ Video saved with static background: {output_path}")
+    print(f" Video saved with static background: {output_path}")
 
 
 if __name__ == "__main__":
