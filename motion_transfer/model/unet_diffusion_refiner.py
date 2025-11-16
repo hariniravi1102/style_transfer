@@ -12,7 +12,7 @@ from unet_acc import DenseMotion, UNetGenerator, warp_image  # your model
 
 def convert_pth_to_safetensors(pth_path, safe_path):
     if not os.path.exists(pth_path):
-        raise FileNotFoundError(f"❌ {pth_path} not found")
+        raise FileNotFoundError(f" {pth_path} not found")
     print(f"🔄 Converting {pth_path} → {safe_path} ...")
     data = torch.load(pth_path, map_location="cpu")
     tensor_dict = {}
@@ -24,17 +24,17 @@ def convert_pth_to_safetensors(pth_path, safe_path):
         for k, v in data["generator"].items():
             if torch.is_tensor(v):
                 tensor_dict[f"generator.{k}"] = v.cpu()
-        print(f"✅ Found DenseMotion + Generator weights ({len(tensor_dict)} tensors)")
+        print(f"Found DenseMotion + Generator weights ({len(tensor_dict)} tensors)")
     else:
         if hasattr(data, "state_dict"):
             data = data.state_dict()
         for k, v in data.items():
             if torch.is_tensor(v):
                 tensor_dict[f"generator.{k}"] = v.cpu()
-        print(f"⚠️ Only generator weights found ({len(tensor_dict)} tensors)")
+        print(f"Only generator weights found ({len(tensor_dict)} tensors)")
 
     save_file(tensor_dict, safe_path)
-    print(f"✅ Saved {safe_path}")
+    print(f"Saved {safe_path}")
     return safe_path
 
 
@@ -45,7 +45,7 @@ def get_mediapipe_keypoints(image_path):
     with mp_face.FaceMesh(static_image_mode=True, max_num_faces=1) as mesh:
         res = mesh.process(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
         if not res.multi_face_landmarks:
-            raise ValueError("❌ No face detected in source image.")
+            raise ValueError("No face detected in source image.")
         landmarks = np.array([(p.x * w, p.y * h) for p in res.multi_face_landmarks[0].landmark])
     return landmarks
 
@@ -92,9 +92,9 @@ class DiffusionRefiner:
             if "cuda" in str(device):
                 try: self.pipe.enable_xformers_memory_efficient_attention()
                 except Exception: pass
-            print("✅ Diffusion refiner ready (SD2 Inpainting).")
+            print("Diffusion refiner ready (SD2 Inpainting).")
         except Exception as e:
-            print(f"⚠️ Diffusion refiner unavailable: {e}")
+            print(f" Diffusion refiner unavailable: {e}")
 
     def refine(self, base_gray, src_gray, mask_gray):
         if self.pipe is None:
@@ -152,7 +152,7 @@ def test_single_image(source_image_path, heatmap_dir, output_path="outputs/final
     dense_motion.load_state_dict(dm_state, strict=False)
     generator.load_state_dict(gen_state, strict=False)
     dense_motion.eval(); generator.eval()
-    print("✅ Model loaded from safetensors.")
+    print("Model loaded from safetensors.")
 
     refiner = DiffusionRefiner(device)
 
@@ -167,7 +167,7 @@ def test_single_image(source_image_path, heatmap_dir, output_path="outputs/final
 
     heatmap_files = sorted([f for f in os.listdir(heatmap_dir) if f.endswith(".npy")])
     if not heatmap_files:
-        print("❌ No heatmaps found.")
+        print("No heatmaps found.")
         return
     src_kp = torch.tensor(np.load(os.path.join(heatmap_dir, heatmap_files[0]))).permute(2, 0, 1).unsqueeze(0).float().to(device)
 
@@ -217,7 +217,7 @@ def test_single_image(source_image_path, heatmap_dir, output_path="outputs/final
                 cv2.imwrite("refined_preview.png", frame_uint8)
 
     out.release()
-    print(f"✅ Final ultra-smooth video saved: {output_path}")
+    print(f" Final ultra-smooth video saved: {output_path}")
 
 
 
