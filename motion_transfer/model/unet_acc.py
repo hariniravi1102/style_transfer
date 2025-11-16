@@ -231,6 +231,6 @@ def generate_video(data_root, output_dir="outputs"):
         print(f"✅ Video saved: {out_path}")
 
 if __name__ == "__main__":
-    data_root = "C:/Users/Harini/PycharmProjects/style_transfer/motion_transfer/dataset/"
+    data_root = "motion_transfer/dataset/"
     train(data_root, epochs=500, resume_checkpoint="checkpoints/last.pth")  # 👈 resume from your saved checkpoint
     generate_video(data_root, output_dir="outputs")
