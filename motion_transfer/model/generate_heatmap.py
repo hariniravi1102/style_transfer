@@ -3,10 +3,10 @@ import numpy as np
 import cv2
 
 # ==== CONFIG ====
-single_heatmap_path = "C:/Users/Harini/PycharmProjects/style_transfer/motion_transfer/dataset_single/reference_heatmap/00000.npy"
-reference_heatmap_dir = "C:/Users/Harini/PycharmProjects/style_transfer/motion_transfer/dataset_single/reference_heatmap"  # contains 150 npy files
-output_dir = "C:/Users/Harini/PycharmProjects/style_transfer/motion_transfer/dataset_single/test_heatmap"
-preview_video = "C:/Users/Harini/PycharmProjects/style_transfer/motion_transfer/dataset_single/simulated_motion.mp4"
+single_heatmap_path = "motion_transfer/dataset_single/reference_heatmap/00000.npy"
+reference_heatmap_dir = "motion_transfer/dataset_single/reference_heatmap"  # contains 150 npy files
+output_dir = "motion_transfer/dataset_single/test_heatmap"
+preview_video = "motion_transfer/dataset_single/simulated_motion.mp4"
 
 os.makedirs(output_dir, exist_ok=True)
 
