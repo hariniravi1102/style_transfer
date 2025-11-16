@@ -46,7 +46,7 @@ class DeformationFieldNet(nn.Module):
         flow_local = self.flow_local(feat)
         occ = torch.sigmoid(self.occ(feat))
 
-        # ✅ Resize mask to match flow resolution
+      
         if mask is not None:
             mask = F.interpolate(mask, size=flow_global.shape[2:], mode="bilinear", align_corners=True)
 
