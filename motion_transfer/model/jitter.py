@@ -1,8 +1,8 @@
 import os
 import numpy as np
 
-heatmap_dir = "C:/Users/Harini/PycharmProjects/style_transfer/motion_transfer/dataset_single/test_heatmap"
-smoothed_dir = "C:/Users/Harini/PycharmProjects/style_transfer/motion_transfer/dataset_single/smoothed_heatmaps"
+heatmap_dir = "motion_transfer/dataset_single/test_heatmap"
+smoothed_dir = "motion_transfer/dataset_single/smoothed_heatmaps"
 os.makedirs(smoothed_dir, exist_ok=True)
 
 # Step 1: Load existing heatmaps and extract keypoints
