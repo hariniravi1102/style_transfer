@@ -65,5 +65,5 @@ for frame_idx, displacement in enumerate(motion_vectors):
 
 video_writer.release()
 
-print(f"✅ Simulated motion heatmaps saved in '{output_dir}'")
-print(f"🎥 Preview video saved as '{preview_video}'")
+print(f"Simulated motion heatmaps saved in '{output_dir}'")
+print(f"Preview video saved as '{preview_video}'")
