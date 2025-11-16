@@ -14,9 +14,9 @@ The system preserves the original sketch applying motion only to key facial feat
 pip install torch torchvision torchaudio
 
 
-## 🌟 Demo Preview
+##  Demo Preview
 
-| 🎨 Input | 🎥 Motion transfer Output |
+|  Input   |  Motion transfer Output |
 |----------|--------------------|
 | ![Input Face](test_image.png) | ![Animated Output](test_result.gif) |
 
