@@ -222,7 +222,7 @@ def test_single_image(source_image_path, heatmap_dir, output_path="outputs/final
 
 
 if __name__ == "__main__":
-    source_image_path = "C:/Users/Harini/PycharmProjects/style_transfer/motion_transfer/test/60.jpg"
-    heatmap_dir = "C:/Users/Harini/PycharmProjects/style_transfer/motion_transfer/test/test_heatmap/"
+    source_image_path = "motion_transfer/test/60.jpg"
+    heatmap_dir = "motion_transfer/test/test_heatmap/"
     output_path = "outputs/final_video.avi"
     test_single_image(source_image_path, heatmap_dir, output_path)
