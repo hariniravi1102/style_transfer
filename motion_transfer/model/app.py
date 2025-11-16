@@ -11,9 +11,9 @@ import streamlit as st
 from unet_diffusion_refiner import test_single_image
 
 
-reference_heatmap_dir = "C:/Users/Harini/PycharmProjects/style_transfer/motion_transfer/dataset_single/reference_heatmap"
-output_dir = "C:/Users/Harini/PycharmProjects/style_transfer/motion_transfer/dataset_single/test_heatmap"
-final_output = "C:/Users/Harini/PycharmProjects/style_transfer/motion_transfer/outputs/final_result.mp4"
+reference_heatmap_dir = "motion_transfer/dataset_single/reference_heatmap"
+output_dir = "motion_transfer/dataset_single/test_heatmap"
+final_output = "motion_transfer/outputs/final_result.mp4"
 os.makedirs(output_dir, exist_ok=True)
 
 num_workers = min(cpu_count(), 4)
@@ -114,25 +114,25 @@ def crop_head_with_bg(img_rgb, target_size=256, margin_top=0.6, margin_sides=0.3
     return background
 
 
-# ==== Streamlit UI ====
+# Streamlit UI
 st.title("Sketch to Live")
 
 src_img = st.file_uploader("Upload face sketch", type=["jpg", "png"])
 cropped_head = None
 
 if src_img is not None:
-    # ✅ Use PIL for lossless decoding
+  
     pil_img = Image.open(src_img).convert("RGB")
     img_rgb = np.array(pil_img)
     ih, iw, _ = img_rgb.shape
     st.write(f"Uploaded image size: {iw}×{ih}")
 
     if ih < target_size or iw < target_size:
-        st.warning(f"⚠️ Image too small ({iw}×{ih}). Please upload one larger than {target_size}×{target_size}.")
+        st.warning(f" Image too small ({iw}×{ih}). Please upload one larger than {target_size}×{target_size}.")
     else:
         cropped_head = crop_head_with_bg(img_rgb, target_size=target_size)
         if cropped_head is None:
-            st.warning("⚠️ No face detected. Try another image.")
+            st.warning(" No face detected. Try another image.")
         else:
             st.subheader("Face Preview")
             st.image(
@@ -143,7 +143,6 @@ if src_img is not None:
                 output_format="PNG",
             )
 
-            # Save high-quality PNG for model
             cv2.imwrite("cropped_head.png",
                         cv2.cvtColor(cropped_head, cv2.COLOR_RGB2BGR),
                         [cv2.IMWRITE_PNG_COMPRESSION, 0])
