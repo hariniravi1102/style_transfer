@@ -64,10 +64,10 @@ def process_person(person_name):
     source_path = os.path.join(sources_dir, f"{person_name}.png")
     video_path  = os.path.join(videos_dir,  f"{person_name}.mp4")
     if not (os.path.isfile(source_path) and os.path.isfile(video_path)):
-        print(f"❌ Missing files for {person_name}")
+        print(f" Missing files for {person_name}")
         return
 
-    print(f"▶ Processing {person_name}...")
+    print(f"Processing {person_name}...")
     person_root  = os.path.join(output_root, person_name)
     frames_dir = os.path.join(output_root, person_name, "frames")
     combined_dir = os.path.join(output_root, person_name, "combined")
@@ -125,7 +125,7 @@ def process_person(person_name):
         frame_idx += 1
 
     cap.release()
-    print(f"✅ Done: {person_name} | Frames: {frame_idx} | Points/frame: {NUM_FACE_POINTS}")
+    print(f"Done: {person_name} | Frames: {frame_idx} | Points/frame: {NUM_FACE_POINTS}")
 
 # ================== RUN ==================
 if __name__ == "__main__":
