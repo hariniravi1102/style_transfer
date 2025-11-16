@@ -6,8 +6,8 @@ import face_alignment
 import mediapipe as mp
 
 # ================== CONFIG ==================
-source_image_path = r"C:\Users\Harini\PycharmProjects\style_transfer\motion_transfer\test\image\person.jpg"
-output_dir = r"C:\Users\Harini\PycharmProjects\style_transfer\motion_transfer\test\single"
+source_image_path = r"motion_transfer\test\image\person.jpg"
+output_dir = r"motion_transfer\test\single"
 os.makedirs(output_dir, exist_ok=True)
 
 target_size = 256
