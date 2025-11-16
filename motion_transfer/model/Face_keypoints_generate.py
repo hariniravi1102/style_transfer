@@ -7,9 +7,9 @@ import face_alignment
 from multiprocessing import Pool, cpu_count
 
 # ================== CONFIG ==================
-sources_dir = r"C:\Users\Harini\PycharmProjects\style_transfer\motion_transfer\new_dataset\image"
-videos_dir  = r"C:\Users\Harini\PycharmProjects\style_transfer\motion_transfer\new_dataset\videos"
-output_root = r"C:\Users\Harini\PycharmProjects\style_transfer\motion_transfer\dataset"
+sources_dir = r"motion_transfer\new_dataset\image"
+videos_dir  = r"motion_transfer\new_dataset\videos"
+output_root = r"motion_transfer\dataset"
 
 num_workers = min(cpu_count(), 4)
 target_size = 256
