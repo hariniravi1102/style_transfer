@@ -103,4 +103,4 @@ for (x, y) in all_points.astype(int):
     cv2.circle(vis, (x, y), 2, (0,255,0), -1)
 cv2.imwrite(os.path.join(output_dir, "preview.png"), cv2.cvtColor(vis, cv2.COLOR_RGB2BGR))
 
-print("✅ Done! Heatmap saved.")
+print("Done! Heatmap saved.")
