@@ -116,9 +116,9 @@ def save_checkpoint(state, is_best, checkpoint_dir="checkpoints", filename="last
     if is_best:
         bestpath = os.path.join(checkpoint_dir, best_filename)
         torch.save(state, bestpath)
-        print(f"✅ Saved new best checkpoint: {bestpath}")
+        print(f" Saved new best checkpoint: {bestpath}")
     else:
-        print(f"💾 Saved checkpoint: {filepath}")
+        print(f"Saved checkpoint: {filepath}")
 
 def train(data_root, epochs=500, resume_checkpoint="checkpoints/last.pth"):
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -137,16 +137,16 @@ def train(data_root, epochs=500, resume_checkpoint="checkpoints/last.pth"):
 
 
     if os.path.exists(resume_checkpoint):
-        print(f"🔄 Resuming training from {resume_checkpoint}")
+        print(f"Resuming training from {resume_checkpoint}")
         checkpoint = torch.load(resume_checkpoint, map_location=device)
         dense_motion.load_state_dict(checkpoint["dense_motion"])
         generator.load_state_dict(checkpoint["generator"])
         optimizer.load_state_dict(checkpoint["optimizer"])
         start_epoch = checkpoint.get("epoch", 0)
         best_loss = checkpoint.get("loss", float("inf"))
-        print(f"✅ Resumed from epoch {start_epoch}, last loss = {best_loss:.4f}")
+        print(f"Resumed from epoch {start_epoch}, last loss = {best_loss:.4f}")
     else:
-        print("🆕 Starting new training run")
+        print("Starting new training run")
 
     # ---- Training Loop ----
     for epoch in range(start_epoch, epochs):
@@ -228,9 +228,9 @@ def generate_video(data_root, output_dir="outputs"):
         for f in generated_frames:
             out.write((f*255).astype(np.uint8))
         out.release()
-        print(f"✅ Video saved: {out_path}")
+        print(f"Video saved: {out_path}")
 
 if __name__ == "__main__":
     data_root = "motion_transfer/dataset/"
-    train(data_root, epochs=500, resume_checkpoint="checkpoints/last.pth")  # 👈 resume from your saved checkpoint
+    train(data_root, epochs=500, resume_checkpoint="checkpoints/last.pth")  
     generate_video(data_root, output_dir="outputs")
