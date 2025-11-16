@@ -50,7 +50,7 @@ def extract_keypoints(hmap):
 def trim_video(input_path, output_path, max_seconds=7):
     cap = cv2.VideoCapture(input_path)
     if not cap.isOpened():
-        print("❌ Error opening video")
+        print("Error opening video")
         return False
     fps = int(round(cap.get(cv2.CAP_PROP_FPS)))
     total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
@@ -151,7 +151,7 @@ if src_img is not None:
 
 if st.button("Lively Sketch"):
     if cropped_head is None:
-        st.error("❌ Please upload a face image.")
+        st.error("Please upload a face image.")
     else:
         progress_text = st.empty()
         progress_bar = st.progress(0)
@@ -161,7 +161,7 @@ if st.button("Lively Sketch"):
         H, W = cropped_head.shape[:2]
         fa_out = fa.get_landmarks(cropped_head)
         if fa_out is None or len(fa_out) == 0:
-            st.error("❌ No face landmarks detected.")
+            st.error("No face landmarks detected.")
         else:
             face68 = fa_out[0].astype(np.float32)
             single_heatmap = gaussian_heatmaps(face68, H, W, sigma=SIGMA)
@@ -169,7 +169,7 @@ if st.button("Lively Sketch"):
 
             ref_files = sorted([f for f in os.listdir(reference_heatmap_dir) if f.endswith(".npy")])
             if len(ref_files) == 0:
-                st.error("❌ No reference heatmaps found!")
+                st.error("No reference heatmaps found!")
             else:
                 ref_heatmaps = [np.load(os.path.join(reference_heatmap_dir, f)) for f in ref_files]
                 ref_kp_list = [extract_keypoints(hm) for hm in ref_heatmaps]
@@ -194,7 +194,7 @@ if st.button("Lively Sketch"):
                 trim_video(final_output, trimmed_output, max_seconds=7)
 
                 progress_bar.progress(100)
-                progress_text.text("✅ Done!")
+                progress_text.text("Done!")
                 frame_preview.empty()
 
                 st.success("Sketch-to-Live")
